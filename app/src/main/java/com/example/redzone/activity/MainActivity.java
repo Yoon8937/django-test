@@ -17,6 +17,7 @@ import com.example.redzone.R;
 import com.example.redzone.networkAPI.ServiceApi;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -107,15 +108,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 System.out.println(response);
-                int code = Integer.parseInt(response.toString().split("=")[2].split(",")[0]);
-                if (code ==200){
-                    Toast.makeText(MainActivity.this, "환영합니다 " + username + "님.", Toast.LENGTH_SHORT).show();
-                    Log.d("Success","Successssssssssssssssssss");
-                    Intent intent = new Intent(getApplicationContext(), MainResult.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(MainActivity.this, "아이디 또는 비밀번호를 잘못 입력하셨습니다.", Toast.LENGTH_SHORT).show();
-                }
+
+
+//                int code = Integer.parseInt(response.toString().split("=")[2].split(",")[0]);
+//                if (code == 200){
+//                    Toast.makeText(MainActivity.this, "환영합니다 " + username + "님.", Toast.LENGTH_SHORT).show();
+//                    Log.d("Success","Successssssssssssssssssss");
+//                    Intent intent = new Intent(getApplicationContext(), MainResult.class);
+//                    intent.putExtra("username", username);
+//                    startActivity(intent);
+//                } else {
+//                    Toast.makeText(MainActivity.this, "아이디 또는 비밀번호를 잘못 입력하셨습니다.", Toast.LENGTH_SHORT).show();
+//                }
             }
 
             @Override

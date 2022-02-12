@@ -106,13 +106,16 @@ public class MainCamera extends  AppCompatActivity {
                 .setMessage("촬영된 이미지를 서버로 전송합니다. \n전송하시겠습니까?")
                 .setPositiveButton("보내기", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(), "확인 누름", Toast.LENGTH_SHORT).show();
+                        Intent reportintent = getIntent();
+                        String username = reportintent.getStringExtra("username");
+                        Toast.makeText(getApplicationContext(), username + "님, 신고가 접수되었습니다.", Toast.LENGTH_SHORT).show();
                         uploadphoto(captureImage);
+                        finish();
                     }
                 })
                 .setNegativeButton("취소", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(), "취소 누름", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
                     }
                 }).show();
     }

@@ -8,6 +8,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
 public interface ServiceApi {
+
     String DJANGO_SITE = "http://13.125.171.174:8000/";
 
     @POST("/android/register/")
