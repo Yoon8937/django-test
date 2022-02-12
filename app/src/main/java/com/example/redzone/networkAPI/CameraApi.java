@@ -14,6 +14,6 @@ public interface CameraApi {
     String DJANGO_SITE="http://13.125.171.174:8000/";
 
     @Multipart
-    @POST("/image/")
+    @POST("/android/image/")
     Call<RequestBody> uploadImage(@Part MultipartBody.Part file);
 }
