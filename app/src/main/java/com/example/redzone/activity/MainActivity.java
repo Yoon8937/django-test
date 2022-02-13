@@ -13,19 +13,10 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
-
 import com.example.redzone.R;
 import com.example.redzone.networkAPI.ServiceApi;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -115,51 +106,16 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                Gson gson = new Gson();
-                String obj = null;
-                try {
-                    obj = gson.toJson(response.body().string());
-
-                    JsonPrimitive object = gson.fromJson(obj, JsonPrimitive.class);
-                    System.out.println("primitive:" + object.getAsString());
-
-                    JsonObject jsonObject = gson.fromJson(object.getAsString(), JsonObject.class);
-
-                    int code = Integer.parseInt(String.valueOf(jsonObject.get("hello")));
-
-                    if (code == -1){
-                        Toast.makeText(MainActivity.this, "아이디 또는 비밀번호를 잘못 입력하셨습니다.", Toast.LENGTH_SHORT).show();
-                    }else {
-                        System.out.print("id: ");
-                        System.out.println(code);
-                        Toast.makeText(MainActivity.this, "환영합니다 " + username + "님.", Toast.LENGTH_SHORT).show();
-                        Log.d("Success","Successssssssssssssssssss");
-                        Intent intent = new Intent(getApplicationContext(), MainResult.class);
-                        intent.putExtra("id", code);
-                        startActivity(intent);
-                    }
-
-
-
-
-
-                } catch (IOException e) {
-                    e.printStackTrace();
+                System.out.println(response);
+                int code = Integer.parseInt(response.toString().split("=")[2].split(",")[0]);
+                if (code ==200){
+                    Toast.makeText(MainActivity.this, "환영합니다 " + username + "님.", Toast.LENGTH_SHORT).show();
+                    Log.d("Success","Successssssssssssssssssss");
+                    Intent intent = new Intent(getApplicationContext(), MainResult.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(MainActivity.this, "아이디 또는 비밀번호를 잘못 입력하셨습니다.", Toast.LENGTH_SHORT).show();
                 }
-
-
-
-//                int code = Integer.parseInt(response.toString().split("=")[2].split(",")[0]);
-//                if (code == 200){
-//                    Toast.makeText(MainActivity.this, "환영합니다 " + username + "님.", Toast.LENGTH_SHORT).show();
-//                    Log.d("Success","Successssssssssssssssssss");
-//                    Intent intent = new Intent(getApplicationContext(), MainResult.class);
-//                    intent.putExtra("username", username);
-//                    startActivity(intent);
-//                } else {
-//                    Toast.makeText(MainActivity.this, "아이디 또는 비밀번호를 잘못 입력하셨습니다.", Toast.LENGTH_SHORT).show();
-//                }
             }
 
             @Override
