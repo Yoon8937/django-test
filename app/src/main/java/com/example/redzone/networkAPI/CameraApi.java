@@ -15,5 +15,5 @@ public interface CameraApi {
 
     @Multipart
     @POST("/android/image/")
-    Call<RequestBody> uploadImage(@Part MultipartBody.Part file);
+    Call<RequestBody> uploadImage(@Part MultipartBody.Part file, @Part MultipartBody.Part id, @Part MultipartBody.Part latitude, @Part MultipartBody.Part longitude);
 }

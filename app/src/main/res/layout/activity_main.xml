@@ -33,12 +33,14 @@
             android:src="@drawable/noparkingsign" />
 
         <EditText
-            android:id="@+id/username"
+            android:id="@+id/user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
             android:background="@drawable/bg_edit_text"
-            android:hint="Email"
+            android:drawableLeft="@drawable/ic_baseline_person_24"
+            android:drawablePadding="10dp"
+            android:hint="Username"
             android:padding="12dp"
             android:singleLine="true"
             android:textSize="12sp" />
@@ -49,11 +51,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@drawable/bg_edit_text"
-            android:drawableEnd="@drawable/ic_baseline_remove_red_eye_24"
+            android:drawableLeft="@drawable/ic_baseline_lock_24"
+            android:drawablePadding="10dp"
             android:hint="Password"
             android:padding="12dp"
             android:singleLine="true"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:inputType="textPassword"/>
 
         <!--        <com.google.android.material.button.MaterialButton-->
         <Button
@@ -75,7 +79,7 @@
             android:layout_marginTop="10dp"
             android:backgroundTint="#3897f0"
             android:paddingEnd="12dp"
-            android:text="Register"
+            android:text="Sign up"
             android:textAllCaps="false"
             android:textColor="@color/white"
             app:cornerRadius="4dp" />

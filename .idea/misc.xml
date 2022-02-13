@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/BIT/AndroidStudioProjects/AndroidRedZone3/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/BIT/AndroidStudioProjects/AndroidRedZone3/app/src/main/res/layout/camera_main.xml" value="0.2046875" />
+        <entry key="..\:/Users/BIT/AndroidStudioProjects/AndroidRedZone3/app/src/main/res/layout/register_main.xml" value="0.5" />
+        <entry key="..\:/Users/BIT/AndroidStudioProjects/AndroidRedZone3/app/src/main/res/layout/report_result_main.xml" value="0.2046875" />
+        <entry key="..\:/Users/BIT/AndroidStudioProjects/AndroidRedZone3/app/src/main/res/xml/file_paths.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/BIT/AndroidStudioProjects/RedZone/app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/BIT/AndroidStudioProjects/RedZone/app/src/main/res/layout/camera_main.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/BIT/AndroidStudioProjects/RedZone/app/src/main/res/layout/register_main.xml" value="0.36614583333333334" />

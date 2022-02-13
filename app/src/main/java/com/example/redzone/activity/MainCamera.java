@@ -15,6 +15,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -28,7 +29,10 @@ import android.widget.Toast;
 
 import com.example.redzone.R;
 import com.example.redzone.networkAPI.CameraApi;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -41,6 +45,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainCamera extends  AppCompatActivity {
+
     Button bt_take_image;
     ImageView imageView;
     private Bitmap bitmap;
@@ -66,6 +71,8 @@ public class MainCamera extends  AppCompatActivity {
                     Manifest.permission.CAMERA
             }, 100);
         }
+
+
 
         bt_take_image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,8 +104,6 @@ public class MainCamera extends  AppCompatActivity {
 
             upload_an_image(captureImage);
         }
-
-
     }
 
     public void upload_an_image(Bitmap captureImage) {
@@ -106,10 +111,9 @@ public class MainCamera extends  AppCompatActivity {
                 .setMessage("촬영된 이미지를 서버로 전송합니다. \n전송하시겠습니까?")
                 .setPositiveButton("보내기", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent reportintent = getIntent();
-                        String username = reportintent.getStringExtra("username");
-                        Toast.makeText(getApplicationContext(), username + "님, 신고가 접수되었습니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "신고가 접수되었습니다.", Toast.LENGTH_SHORT).show();
                         uploadphoto(captureImage);
+                        // gps 합쳐서 전송
                         finish();
                     }
                 })
@@ -121,24 +125,45 @@ public class MainCamera extends  AppCompatActivity {
     }
 
     private void uploadphoto(Bitmap captureImage) {
-        System.out.println("보내기 클릭");
+
+        System.out.println("Splash 시작할게?");
+        Intent intent = new Intent(getApplicationContext(), MainSplash.class);
+        startActivity(intent);
+        Intent latintent = getIntent();
+
+        System.out.println("위 경도 ");
+        Double latitude = intent.getDoubleExtra("latitude", 0);
+        Double longitude = intent.getDoubleExtra("longitude", 0);
+        System.out.println(latitude);
+        System.out.println(longitude);
+
+
         File imageFile = new File(saveBitmapToJpg(captureImage, "iamfromAndroidStudio!!"));
-        System.out.println(imageFile.toString());
+        System.out.println("이미지 경로:" + imageFile.toString());
+
 
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(CameraApi.DJANGO_SITE).addConverterFactory(GsonConverterFactory.create()).build();
         CameraApi api = retrofit.create(CameraApi.class);
 
         RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/data"), imageFile);
-        Intent mainintent = getIntent();
-        Integer id = mainintent.getIntExtra("id", -1);
-
-        System.out.print("Image from ID ");
-        System.out.println(id);
-
         MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("model_pic", imageFile.getName(), requestBody);
 
-        Call<RequestBody> call = api.uploadImage(multipartBody);
+        Intent reportintent = getIntent();
+        Integer id = reportintent.getIntExtra("id", -1);
+
+        System.out.print("From camera");
+        System.out.println(id);
+        RequestBody idrequestBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(id));
+        MultipartBody.Part idmultipartBody = MultipartBody.Part.createFormData("userid", String.valueOf(id), idrequestBody);
+
+        RequestBody latrequestBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(latitude));
+        MultipartBody.Part latmultipartBody = MultipartBody.Part.createFormData("lat", String.valueOf(latitude), latrequestBody);
+        RequestBody lngrequestBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(longitude));
+        MultipartBody.Part lngmultipartBody = MultipartBody.Part.createFormData("lng", String.valueOf(longitude), lngrequestBody);
+
+
+        Call<RequestBody> call = api.uploadImage(multipartBody, idmultipartBody, latmultipartBody, lngmultipartBody);
 
         call.enqueue(new Callback<RequestBody>() {
             @Override
@@ -153,8 +178,6 @@ public class MainCamera extends  AppCompatActivity {
 
             }
         });
-
-
     }
 
     public String saveBitmapToJpg(Bitmap bitmap, String name) {
@@ -163,6 +186,7 @@ public class MainCamera extends  AppCompatActivity {
         File imgFile = new File(storage, fileName);
 
         try {
+
             imgFile.createNewFile();
             FileOutputStream out = new FileOutputStream(imgFile);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
