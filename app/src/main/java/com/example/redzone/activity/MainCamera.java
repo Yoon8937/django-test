@@ -164,15 +164,6 @@ public class MainCamera extends  AppCompatActivity {
         requestMap.put("lat", latBody);
         requestMap.put("lng", lngBody);
 
-//        RequestBody idrequestBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(id));
-//        MultipartBody.Part idmultipartBody = MultipartBody.Part.createFormData("userid", String.valueOf(id), idrequestBody);
-//
-//        RequestBody latBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(lat));
-//        MultipartBody.Part latmulti = MultipartBody.Part.createFormData("lat", String.valueOf(lat), latBody);
-//
-//        RequestBody lngBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(lng));
-//        MultipartBody.Part lngmulti = MultipartBody.Part.createFormData("lng", String.valueOf(lng), lngBody);
-
         Call<RequestBody> call = api.uploadImage(multipartBody, requestMap);
 
         call.enqueue(new Callback<RequestBody>() {
