@@ -44,7 +44,7 @@ public class MainSplash extends AppCompatActivity {
 
     private FusedLocationProviderClient fusedLocationProviderClient;
     private LocationRequest locationRequest;
-    private double longitude, latitude;
+    private float longitude, latitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,18 +160,21 @@ public class MainSplash extends AppCompatActivity {
         @Override
         public void onLocationResult(LocationResult locationResult) {
             super.onLocationResult(locationResult);
-            longitude = locationResult.getLastLocation().getLongitude();
-            latitude = locationResult.getLastLocation().getLatitude();
+            longitude = (float) locationResult.getLastLocation().getLongitude();
+            latitude = (float) locationResult.getLastLocation().getLatitude();
             fusedLocationProviderClient.removeLocationUpdates(locationCallback);
 
             Intent resultintent = getIntent();
             Integer id = resultintent.getIntExtra("id", -1);
+            System.out.print("Splash got ");
+            System.out.println(id);
 
             Intent intent = new Intent(getApplicationContext(), MainCamera.class);
             intent.putExtra("id", id);
-            intent.putExtra("latitude", latitude);
-            intent.putExtra("longitude", longitude);
+            intent.putExtra("lat", latitude);
+            intent.putExtra("lng", longitude);
             startActivity(intent);
+
         }
 
         @Override

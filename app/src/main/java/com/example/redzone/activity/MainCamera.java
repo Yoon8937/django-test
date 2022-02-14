@@ -28,15 +28,19 @@ import android.widget.Toast;
 
 
 import com.example.redzone.R;
+import com.example.redzone.model.PostModel;
 import com.example.redzone.networkAPI.CameraApi;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -126,6 +130,22 @@ public class MainCamera extends  AppCompatActivity {
 
     private void uploadphoto(Bitmap captureImage) {
 
+        /////////////////////////////////////////
+        Intent splashintent = getIntent();
+        Integer id = splashintent.getIntExtra("id", -1);
+        float lat = splashintent.getFloatExtra("lat", (float) -1.0);
+        float lng = splashintent.getFloatExtra("lng", (float) -1.0);
+
+        System.out.print("Camera got ");
+        System.out.println(id);
+
+        System.out.print("위도: ");
+
+        System.out.print(lat);
+        System.out.print(", 경도: ");
+        System.out.println(lng);
+        /////////////////////////////////////////
+
         File imageFile = new File(saveBitmapToJpg(captureImage, "iamfromAndroidStudio!!"));
         System.out.println("이미지 경로:" + imageFile.toString());
 
@@ -135,28 +155,25 @@ public class MainCamera extends  AppCompatActivity {
         RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/data"), imageFile);
         MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("model_pic", imageFile.getName(), requestBody);
 
-        Intent splashintent = getIntent();
-        Integer id = splashintent.getIntExtra("id", -1);
-        Integer lat = splashintent.getIntExtra("latitude", -1);
-        Integer lng = splashintent.getIntExtra("longitude", -1);
+        RequestBody idBody = RequestBody.create(MediaType.parse("text/palin"), String.valueOf(id));
+        RequestBody latBody = RequestBody.create(MediaType.parse("text/palin"), String.valueOf(lat));
+        RequestBody lngBody = RequestBody.create(MediaType.parse("text/palin"), String.valueOf(lng));
 
-        System.out.println("위 경도 ");
+        HashMap<String, RequestBody> requestMap = new HashMap<>();
+        requestMap.put("userid", idBody);
+        requestMap.put("lat", latBody);
+        requestMap.put("lng", lngBody);
 
-        System.out.println(lat);
-        System.out.println(lng);
+//        RequestBody idrequestBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(id));
+//        MultipartBody.Part idmultipartBody = MultipartBody.Part.createFormData("userid", String.valueOf(id), idrequestBody);
+//
+//        RequestBody latBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(lat));
+//        MultipartBody.Part latmulti = MultipartBody.Part.createFormData("lat", String.valueOf(lat), latBody);
+//
+//        RequestBody lngBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(lng));
+//        MultipartBody.Part lngmulti = MultipartBody.Part.createFormData("lng", String.valueOf(lng), lngBody);
 
-        System.out.print("From camera");
-        System.out.println(id);
-        RequestBody idrequestBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(id));
-        MultipartBody.Part idmultipartBody = MultipartBody.Part.createFormData("userid", String.valueOf(id), idrequestBody);
-
-        RequestBody latrequestBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(lat));
-        MultipartBody.Part latmultipartBody = MultipartBody.Part.createFormData("lat", String.valueOf(lat), latrequestBody);
-        RequestBody lngrequestBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(lng));
-        MultipartBody.Part lngmultipartBody = MultipartBody.Part.createFormData("lng", String.valueOf(lng), lngrequestBody);
-
-
-        Call<RequestBody> call = api.uploadImage(multipartBody, idmultipartBody, latmultipartBody, lngmultipartBody);
+        Call<RequestBody> call = api.uploadImage(multipartBody, requestMap);
 
         call.enqueue(new Callback<RequestBody>() {
             @Override
