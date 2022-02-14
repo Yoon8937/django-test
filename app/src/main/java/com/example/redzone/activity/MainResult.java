@@ -21,9 +21,11 @@ public class MainResult extends AppCompatActivity {
         ReportBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainCamera.class);
+
                 Intent reportintent = getIntent();
                 Integer id = reportintent.getIntExtra("id", -1);
+
+                Intent intent = new Intent(getApplicationContext(), MainSplash.class);
                 intent.putExtra("id", id);
                 startActivity(intent);
             }

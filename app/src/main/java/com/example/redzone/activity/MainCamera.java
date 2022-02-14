@@ -126,22 +126,8 @@ public class MainCamera extends  AppCompatActivity {
 
     private void uploadphoto(Bitmap captureImage) {
 
-        System.out.println("Splash 시작할게?");
-        Intent intent = new Intent(getApplicationContext(), MainSplash.class);
-        startActivity(intent);
-        Intent latintent = getIntent();
-
-        System.out.println("위 경도 ");
-        Double latitude = intent.getDoubleExtra("latitude", 0);
-        Double longitude = intent.getDoubleExtra("longitude", 0);
-        System.out.println(latitude);
-        System.out.println(longitude);
-
-
         File imageFile = new File(saveBitmapToJpg(captureImage, "iamfromAndroidStudio!!"));
         System.out.println("이미지 경로:" + imageFile.toString());
-
-
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(CameraApi.DJANGO_SITE).addConverterFactory(GsonConverterFactory.create()).build();
         CameraApi api = retrofit.create(CameraApi.class);
@@ -149,18 +135,25 @@ public class MainCamera extends  AppCompatActivity {
         RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/data"), imageFile);
         MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("model_pic", imageFile.getName(), requestBody);
 
-        Intent reportintent = getIntent();
-        Integer id = reportintent.getIntExtra("id", -1);
+        Intent splashintent = getIntent();
+        Integer id = splashintent.getIntExtra("id", -1);
+        Integer lat = splashintent.getIntExtra("latitude", -1);
+        Integer lng = splashintent.getIntExtra("longitude", -1);
+
+        System.out.println("위 경도 ");
+
+        System.out.println(lat);
+        System.out.println(lng);
 
         System.out.print("From camera");
         System.out.println(id);
         RequestBody idrequestBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(id));
         MultipartBody.Part idmultipartBody = MultipartBody.Part.createFormData("userid", String.valueOf(id), idrequestBody);
 
-        RequestBody latrequestBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(latitude));
-        MultipartBody.Part latmultipartBody = MultipartBody.Part.createFormData("lat", String.valueOf(latitude), latrequestBody);
-        RequestBody lngrequestBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(longitude));
-        MultipartBody.Part lngmultipartBody = MultipartBody.Part.createFormData("lng", String.valueOf(longitude), lngrequestBody);
+        RequestBody latrequestBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(lat));
+        MultipartBody.Part latmultipartBody = MultipartBody.Part.createFormData("lat", String.valueOf(lat), latrequestBody);
+        RequestBody lngrequestBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(lng));
+        MultipartBody.Part lngmultipartBody = MultipartBody.Part.createFormData("lng", String.valueOf(lng), lngrequestBody);
 
 
         Call<RequestBody> call = api.uploadImage(multipartBody, idmultipartBody, latmultipartBody, lngmultipartBody);

@@ -48,7 +48,6 @@ public class MainSplash extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("Splash onCreate 들어왔다.");
         super.onCreate(savedInstanceState);
     }
 
@@ -165,12 +164,14 @@ public class MainSplash extends AppCompatActivity {
             latitude = locationResult.getLastLocation().getLatitude();
             fusedLocationProviderClient.removeLocationUpdates(locationCallback);
 
+            Intent resultintent = getIntent();
+            Integer id = resultintent.getIntExtra("id", -1);
+
             Intent intent = new Intent(getApplicationContext(), MainCamera.class);
-            System.out.println("Splash 시작했다");
+            intent.putExtra("id", id);
             intent.putExtra("latitude", latitude);
             intent.putExtra("longitude", longitude);
             startActivity(intent);
-            finish();
         }
 
         @Override
