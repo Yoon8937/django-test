@@ -126,6 +126,22 @@ public class MainCamera extends  AppCompatActivity {
 
     private void uploadphoto(Bitmap captureImage) {
 
+        /////////////////////////////////////////
+        Intent splashintent = getIntent();
+        Integer id = splashintent.getIntExtra("id", -1);
+        double lat = splashintent.getDoubleExtra("lat", (double) -1.0);
+        double lng = splashintent.getDoubleExtra("lng", (double) -1.0);
+
+        System.out.print("Camera got ");
+        System.out.println(id);
+
+        System.out.print("위도: ");
+
+        System.out.print(lat);
+        System.out.print(", 경도: ");
+        System.out.println(lng);
+        /////////////////////////////////////////
+
         File imageFile = new File(saveBitmapToJpg(captureImage, "iamfromAndroidStudio!!"));
         System.out.println("이미지 경로:" + imageFile.toString());
 
@@ -135,18 +151,6 @@ public class MainCamera extends  AppCompatActivity {
         RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/data"), imageFile);
         MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("model_pic", imageFile.getName(), requestBody);
 
-        Intent splashintent = getIntent();
-        Integer id = splashintent.getIntExtra("id", -1);
-        Integer lat = splashintent.getIntExtra("latitude", -1);
-        Integer lng = splashintent.getIntExtra("longitude", -1);
-
-        System.out.println("위 경도 ");
-
-        System.out.println(lat);
-        System.out.println(lng);
-
-        System.out.print("From camera");
-        System.out.println(id);
         RequestBody idrequestBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(id));
         MultipartBody.Part idmultipartBody = MultipartBody.Part.createFormData("userid", String.valueOf(id), idrequestBody);
 

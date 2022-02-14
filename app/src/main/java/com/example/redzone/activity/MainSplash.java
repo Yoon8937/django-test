@@ -166,12 +166,15 @@ public class MainSplash extends AppCompatActivity {
 
             Intent resultintent = getIntent();
             Integer id = resultintent.getIntExtra("id", -1);
+            System.out.print("Splash got ");
+            System.out.println(id);
 
             Intent intent = new Intent(getApplicationContext(), MainCamera.class);
             intent.putExtra("id", id);
-            intent.putExtra("latitude", latitude);
-            intent.putExtra("longitude", longitude);
+            intent.putExtra("lat", latitude);
+            intent.putExtra("lng", longitude);
             startActivity(intent);
+
         }
 
         @Override
