@@ -29,7 +29,6 @@ public class MainRegister extends AppCompatActivity {
     private EditText mRepasswordView;
     private Button mRegisterButton;
     private ServiceApi service;
-
     private ProgressBar mProgressView;
 
     @Override
@@ -42,7 +41,6 @@ public class MainRegister extends AppCompatActivity {
         mPasswordView = (EditText) findViewById(R.id.password);
         mRepasswordView = (EditText) findViewById(R.id.repassword);
         mRegisterButton = (Button) findViewById(R.id.RegisterBtn);
-
         mProgressView = (ProgressBar) findViewById(R.id.register_progress);
 
         Gson gson = new GsonBuilder().setLenient().create();

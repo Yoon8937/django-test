@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="50dp">
+    android:padding="50dp"
+    android:background="@color/colorPrimary">
 
     <LinearLayout
 
@@ -27,12 +28,17 @@
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
+
             <Button
+                android:id="@+id/bt_take_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/bt_take_image"
-                android:text="사진 촬영" />
+                android:text="사진 촬영"
+                android:background="@drawable/rounded_background"/>
+
+
         </LinearLayout>
+
     </LinearLayout>
 
 </RelativeLayout>

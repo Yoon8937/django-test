@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.content.Intent;
 
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
         mUsername = (EditText) findViewById(R.id.user);
         mPassword2 = (EditText) findViewById(R.id.password2);
+        mProgressView = (ProgressBar) findViewById(R.id.register_progress_main);
+
 
         Gson gson = new GsonBuilder().setLenient().create();
 
@@ -100,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             focusView.requestFocus();
         } else {
             startLogin(username, password2);
-//            showProgress(true);
+            showProgress(true);
         }
     }
 
@@ -123,8 +126,10 @@ public class MainActivity extends AppCompatActivity {
                     int code = Integer.parseInt(String.valueOf(jsonObject.get("hello")));
 
                     if (code == -1){
+                        showProgress(false);
                         Toast.makeText(MainActivity.this, "아이디 또는 비밀번호를 잘못 입력하셨습니다.", Toast.LENGTH_SHORT).show();
                     }else {
+                        showProgress(false);
                         Toast.makeText(MainActivity.this, "환영합니다 " + username + "님.", Toast.LENGTH_SHORT).show();
                         Log.d("Success","Successssssssssssssssssss");
                         Intent intent = new Intent(getApplicationContext(), MainResult.class);
@@ -144,7 +149,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
+
+    private void showProgress(boolean show) {
+        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE );
+    }
+
 }

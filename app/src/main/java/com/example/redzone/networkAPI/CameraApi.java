@@ -15,6 +15,7 @@ import retrofit2.http.PartMap;
 public interface CameraApi {
 
     String DJANGO_SITE="http://13.125.171.174:8000/";
+//    String DJANGO_SITE="http://15.164.224.6:8000";
 
     @Multipart
     @POST("/android/image/")
