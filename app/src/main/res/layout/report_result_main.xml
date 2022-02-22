@@ -8,24 +8,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <TextView
+            android:id="@+id/usernameinfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="40dp" />
+
+
     </LinearLayout>
+
 
     <Button
         android:id="@+id/ReportBtn"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="350dp"
         android:text="신고하기" />
 
-
     <Button
         android:id="@+id/ResultBtn"
-        android:text="결과보기"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="230dp"
         android:layout_marginTop="350dp"
-        android:background="@drawable/rounded_background"/>
+        android:text="결과보기" />
 
 </RelativeLayout>

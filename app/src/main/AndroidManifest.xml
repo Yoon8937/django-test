@@ -19,8 +19,9 @@
         android:theme="@style/Theme.RedZone"
         android:usesCleartextTraffic="true">
 
+<!--        android:name=".activity.MainActivity"-->
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.MainLoading"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,6 +34,7 @@
         <activity android:name=".activity.MainResult" />
         <activity android:name=".activity.MainCamera" />
         <activity android:name=".activity.MainSplash" />
+        <activity android:name=".activity.MainActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

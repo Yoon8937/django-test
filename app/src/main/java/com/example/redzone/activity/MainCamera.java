@@ -11,12 +11,15 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import android.Manifest;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.ImageDecoder;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 
@@ -35,11 +38,14 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -76,17 +82,56 @@ public class MainCamera extends  AppCompatActivity {
             }, 100);
         }
 
-
+//        Uri realUri = null; //원본 이미지 저정할 변수
 
         bt_take_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //open camera 카메라 열기
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                createImageUri(newFileName(),"image/jpg");
+
                 startActivityForResult(intent, 100);
             }
         });
     }
+
+
+
+//    Uri createImageUri(String filename, String minetype){ //원본 이미지를 저장할 Uri를 Mediastore에 생성하는 메서드
+//        ContentValues values = new ContentValues();
+//        values.put(MediaStore.Images.Media.DISPLAY_NAME, filename);
+//        values.put(MediaStore.Images.Media.MIME_TYPE, minetype);
+//
+//        return getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+//    }
+//
+//    String nameFile(){ //파일 이름을 생성하는 메서드
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+//        String filename = sdf.format(System.currentTimeMillis()); //흠 이게 맞나 변수....
+//        return "${filename}.jpg";
+//    }
+//
+////    @NotNull
+//    public final String newFileName() {
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddd_HHmmss");
+//        String filename = sdf.format(System.currentTimeMillis());
+//        return filename + ".jpg";
+//    }
+//
+//    Bitmap loadBitmap(Uri photo) {
+//        Bitmap image = null;
+//        try {
+//            if(Build.VERSION.SDK_INT > Build.VERSION_CODES.O_MR1){
+//                ImageDecoder.createSource(getContentResolver(), photoUri);
+//            }
+//        } catch(Exception e){
+//            e.printStackTrace();
+//        }
+//        return image;
+//    }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

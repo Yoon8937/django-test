@@ -133,7 +133,9 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "환영합니다 " + username + "님.", Toast.LENGTH_SHORT).show();
                         Log.d("Success","Successssssssssssssssssss");
                         Intent intent = new Intent(getApplicationContext(), MainResult.class);
+
                         intent.putExtra("id", code);
+//                        intent.putExtra("id", username);//이거 하나 추가함 2/21
                         startActivity(intent);
                     }
 

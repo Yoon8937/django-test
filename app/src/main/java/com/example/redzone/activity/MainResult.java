@@ -2,8 +2,10 @@ package com.example.redzone.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +18,13 @@ public class MainResult extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.report_result_main);
+
+        Intent userid = getIntent();
+        String useridinfo = userid.getStringExtra("id");
+        TextView textView = (TextView)findViewById(R.id.usernameinfo);
+        Log.d(this.getClass().getName(), (String)textView.getText());
+        textView.setText(useridinfo+" 님 반갑습니다람쥐");
+
 
         Button ReportBtn = (Button) findViewById(R.id.ReportBtn);
         ReportBtn.setOnClickListener(new View.OnClickListener() {
