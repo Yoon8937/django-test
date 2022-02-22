@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -21,6 +22,7 @@ import android.graphics.ImageDecoder;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 
 import android.util.Log;
@@ -46,6 +48,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -68,6 +71,22 @@ public class MainCamera extends  AppCompatActivity {
         take_an_image();
     }
 
+    String currentPhotoPath;
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
     public void take_an_image() {
         setContentView(R.layout.camera_main);
 
@@ -89,9 +108,21 @@ public class MainCamera extends  AppCompatActivity {
             public void onClick(View view) {
                 //open camera 카메라 열기
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                createImageUri(newFileName(),"image/jpg");
+                if ( intent.resolveActivity(getPackageManager()) != null){
+                    File photoFile = null;
+                    try{
+                        photoFile = createImageFile();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    if(photoFile != null){
+                        Uri photoURI = FileProvider.getUriForFile(MainCamera.this, "com.kimjjing1004.seoulapplication.fileprovider", photoFile);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                        startActivityForResult(intent, 100);
+                    }
+                }
 
-                startActivityForResult(intent, 100);
+
             }
         });
     }

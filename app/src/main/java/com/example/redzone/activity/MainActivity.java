@@ -135,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), MainResult.class);
 
                         intent.putExtra("id", code);
+                        intent.putExtra("username", username);
 //                        intent.putExtra("id", username);//이거 하나 추가함 2/21
                         startActivity(intent);
                     }

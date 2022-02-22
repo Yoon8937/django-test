@@ -21,9 +21,10 @@ public class MainResult extends AppCompatActivity {
 
         Intent userid = getIntent();
         String useridinfo = userid.getStringExtra("id");
+        String username = userid.getStringExtra("username");
         TextView textView = (TextView)findViewById(R.id.usernameinfo);
         Log.d(this.getClass().getName(), (String)textView.getText());
-        textView.setText(useridinfo+" 님 반갑습니다람쥐");
+        textView.setText(username+"님.");
 
 
         Button ReportBtn = (Button) findViewById(R.id.ReportBtn);
