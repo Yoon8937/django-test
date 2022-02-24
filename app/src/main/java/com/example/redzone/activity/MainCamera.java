@@ -1,55 +1,45 @@
 package com.example.redzone.activity;
 
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
-
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import android.Manifest;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageDecoder;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-
 import com.example.redzone.R;
-import com.example.redzone.model.PostModel;
 import com.example.redzone.networkAPI.CameraApi;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationRequest;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
-import org.jetbrains.annotations.NotNull;
-
-import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,16 +48,18 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainCamera extends  AppCompatActivity {
-
+    File filePath = null;
     Button bt_take_image;
     ImageView imageView;
     private Bitmap bitmap;
     private int IMG_REQUEST = 21;
+    int REQUEST_IMAGE_CAPTURE = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.camera_main);
+
         take_an_image();
     }
 
@@ -87,18 +79,16 @@ public class MainCamera extends  AppCompatActivity {
         currentPhotoPath = image.getAbsolutePath();
         return image;
     }
+
     public void take_an_image() {
         setContentView(R.layout.camera_main);
 
         //Assign Variable
         imageView = findViewById(R.id.imageview);
         bt_take_image = findViewById(R.id.bt_take_image);
-
         //Request For Camera permission 카메라 허가 요청
         if (ContextCompat.checkSelfPermission(MainCamera.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MainCamera.this, new String[]{
-                    Manifest.permission.CAMERA
-            }, 100);
+            ActivityCompat.requestPermissions(MainCamera.this, new String[]{Manifest.permission.CAMERA}, 100);
         }
 
 //        Uri realUri = null; //원본 이미지 저정할 변수
@@ -108,6 +98,7 @@ public class MainCamera extends  AppCompatActivity {
             public void onClick(View view) {
                 //open camera 카메라 열기
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                System.out.println("사진 찍었다?");
                 if ( intent.resolveActivity(getPackageManager()) != null){
                     File photoFile = null;
                     try{
@@ -116,74 +107,56 @@ public class MainCamera extends  AppCompatActivity {
                         e.printStackTrace();
                     }
                     if(photoFile != null){
-                        Uri photoURI = FileProvider.getUriForFile(MainCamera.this, "com.kimjjing1004.seoulapplication.fileprovider", photoFile);
+                        Uri photoURI = FileProvider.getUriForFile(MainCamera.this, "com.example.redzone.fileprovider", photoFile);
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                        startActivityForResult(intent, 100);
+                        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
                     }
                 }
-
-
             }
         });
     }
 
 
-
-//    Uri createImageUri(String filename, String minetype){ //원본 이미지를 저장할 Uri를 Mediastore에 생성하는 메서드
-//        ContentValues values = new ContentValues();
-//        values.put(MediaStore.Images.Media.DISPLAY_NAME, filename);
-//        values.put(MediaStore.Images.Media.MIME_TYPE, minetype);
-//
-//        return getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-//    }
-//
-//    String nameFile(){ //파일 이름을 생성하는 메서드
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
-//        String filename = sdf.format(System.currentTimeMillis()); //흠 이게 맞나 변수....
-//        return "${filename}.jpg";
-//    }
-//
-////    @NotNull
-//    public final String newFileName() {
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddd_HHmmss");
-//        String filename = sdf.format(System.currentTimeMillis());
-//        return filename + ".jpg";
-//    }
-//
-//    Bitmap loadBitmap(Uri photo) {
-//        Bitmap image = null;
-//        try {
-//            if(Build.VERSION.SDK_INT > Build.VERSION_CODES.O_MR1){
-//                ImageDecoder.createSource(getContentResolver(), photoUri);
-//            }
-//        } catch(Exception e){
-//            e.printStackTrace();
-//        }
-//        return image;
-//    }
-
-
-
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        System.out.println("This is onActivityResult");
+        System.out.println(requestCode);
+        System.out.println(resultCode);
 
-        if (requestCode == IMG_REQUEST && resultCode == RESULT_OK && data != null) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK ) {
+            System.out.println("들어왔어!");
+            //System.out.println(Build.VERSION.SDK_INT); 28
 
-            Uri path = data.getData();
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), path);
-                imageView.setImageBitmap(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
+            File file = new File(currentPhotoPath);
+
+            Bitmap bitmap = null;
+            if (android.os.Build.VERSION.SDK_INT >= 28) {
+                ImageDecoder.Source source = ImageDecoder.createSource(getContentResolver(), Uri.fromFile(file));
+                try {
+                    bitmap = ImageDecoder.decodeBitmap(source);
+                    if (bitmap != null) {
+                        imageView.setImageBitmap(bitmap);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(file));
+                    if (bitmap != null) {
+                        imageView.setImageBitmap(bitmap);
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        }
-        if (requestCode == 100) {
-            Bitmap captureImage = (Bitmap) data.getExtras().get("data");
-            imageView.setImageBitmap(captureImage);
 
-            upload_an_image(captureImage);
+            upload_an_image(bitmap);
         }
+
     }
 
     public void upload_an_image(Bitmap captureImage) {
@@ -221,8 +194,14 @@ public class MainCamera extends  AppCompatActivity {
         System.out.print(", 경도: ");
         System.out.println(lng);
         /////////////////////////////////////////
+        TimeZone tz;
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");//.format(new Date());
+        tz = TimeZone.getTimeZone("Asia/Seoul");
+        dateFormat.setTimeZone(tz);
+        Date date = new Date();
+        String imageFileName = "JPEG_" + dateFormat.format(date) + "_";
 
-        File imageFile = new File(saveBitmapToJpg(captureImage, "iamfromAndroidStudio!!"));
+        File imageFile = new File(saveBitmapToJpg(captureImage, imageFileName));
         System.out.println("이미지 경로:" + imageFile.toString());
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(CameraApi.DJANGO_SITE).addConverterFactory(GsonConverterFactory.create()).build();

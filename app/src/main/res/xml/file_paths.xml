@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<external-path
-    name="my_images"
-    path="Android/data/com.example.redzone/files/Pictures" />
+<!--<paths>-->
+<!--    <files-path-->
+<!--        name="myiamges"-->
+<!--        path="images/" />-->
+<!--</paths>-->
+<paths>
+    <external-path name="images" path="."/>
+</paths>
+
+
+<!--<external-path-->
+<!--    name="my_images"-->
+<!--    path="Android/data/com.example.redzone/files/Pictures" />-->

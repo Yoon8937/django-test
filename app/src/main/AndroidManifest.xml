@@ -6,7 +6,7 @@
         android:maxSdkVersion="18"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.CAMERA" /> //권한
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!--   FINE은 GPS를 이용해 정확한 정보를 가져온다. -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -39,7 +39,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.kimjjing1004.seoulapplication.fileprovider"
+            android:authorities="com.example.redzone.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
