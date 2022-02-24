@@ -4,35 +4,100 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="150dp">
 
+        <ImageView
+            android:id="@+id/profile"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/yh" />
+        <!--        android:src="@mipmap/ic_launcher"-->
         <TextView
             android:id="@+id/usernameinfo"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="40dp" />
+            android:layout_alignTop="@id/profile"
+            android:layout_toRightOf="@id/profile"
+            android:textColor="@color/black"
+            android:textSize="27dp" />
+
+        <TextView
+            android:id="@+id/fkemail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/usernameinfo"
+            android:layout_alignLeft="@id/usernameinfo"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="-4dp"
+            android:text="email: amos@gmail.com"
+            android:textColor="@color/black"
+            android:textSize="23dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fkemail"
+            android:layout_alignLeft="@id/fkemail"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="-4dp"
+            android:text="Phone : 010-1234-5678"
+            android:textColor="@color/black"
+            android:textSize="23dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="140dp"
+        android:gravity="center"
+        >
+
+        <View
+            android:layout_width="330dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="#e2e2e2" />
+
+    </RelativeLayout>
 
 
-    </LinearLayout>
-
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignTop="@id/ReportBtn"
+        android:layout_marginLeft="62dp"
+        android:layout_marginTop="-100dp"
+        android:src="@drawable/siren" />
 
     <Button
         android:id="@+id/ReportBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="350dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="430dp"
         android:text="신고하기" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignTop="@id/ResultBtn"
+        android:layout_marginLeft="235dp"
+        android:layout_marginTop="-100dp"
+        android:src="@drawable/result" />
 
     <Button
         android:id="@+id/ResultBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="230dp"
-        android:layout_marginTop="350dp"
+        android:layout_marginLeft="240dp"
+        android:layout_marginTop="430dp"
         android:text="결과보기" />
 
 </RelativeLayout>

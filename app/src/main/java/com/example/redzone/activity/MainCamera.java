@@ -91,8 +91,6 @@ public class MainCamera extends  AppCompatActivity {
             ActivityCompat.requestPermissions(MainCamera.this, new String[]{Manifest.permission.CAMERA}, 100);
         }
 
-//        Uri realUri = null; //원본 이미지 저정할 변수
-
         bt_take_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

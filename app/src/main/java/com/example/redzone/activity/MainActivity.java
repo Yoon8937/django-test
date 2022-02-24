@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.content.Intent;
 
@@ -132,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                         showProgress(false);
                         Toast.makeText(MainActivity.this, "환영합니다 " + username + "님.", Toast.LENGTH_SHORT).show();
                         Log.d("Success","Successssssssssssssssssss");
-                        Intent intent = new Intent(getApplicationContext(), MainResult.class);
+                        Intent intent = new Intent(getApplicationContext(), MainReportAndResult.class);
 
                         intent.putExtra("id", code);
                         intent.putExtra("username", username);

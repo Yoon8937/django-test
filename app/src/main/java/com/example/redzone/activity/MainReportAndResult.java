@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.redzone.R;
 
-public class MainResult extends AppCompatActivity {
+public class MainReportAndResult extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ public class MainResult extends AppCompatActivity {
         String username = userid.getStringExtra("username");
         TextView textView = (TextView)findViewById(R.id.usernameinfo);
         Log.d(this.getClass().getName(), (String)textView.getText());
-        textView.setText(username+"님.");
+        textView.setText(username+" 님");
 
 
         Button ReportBtn = (Button) findViewById(R.id.ReportBtn);
