@@ -41,6 +41,17 @@ public class MainReportAndResult extends AppCompatActivity {
             }
         });
 
+
+        Button ResultBtn = (Button) findViewById(R.id.ResultBtn);
+        ResultBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(), MainResult.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
 }

@@ -46,7 +46,7 @@
             android:layout_alignLeft="@id/fkemail"
             android:layout_marginLeft="2dp"
             android:layout_marginTop="-4dp"
-            android:text="Phone : 010-1234-5678"
+            android:text="phone : 010-1234-5678"
             android:textColor="@color/black"
             android:textSize="23dp" />
 
@@ -69,6 +69,30 @@
 
 
     <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignTop="@id/ReportBtn"
+        android:layout_marginLeft="240dp"
+        android:layout_marginTop="-330dp"
+        android:src="@drawable/nopark" />
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignTop="@id/ReportBtn"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="-320dp"
+        android:src="@drawable/car" />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignTop="@id/ReportBtn"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="-290dp"
+        android:src="@drawable/photo" />
+
+    <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_alignTop="@id/ReportBtn"
@@ -81,23 +105,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="70dp"
-        android:layout_marginTop="430dp"
+        android:layout_marginTop="530dp"
         android:text="신고하기" />
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_alignTop="@id/ResultBtn"
-        android:layout_marginLeft="235dp"
-        android:layout_marginTop="-100dp"
+        android:layout_marginLeft="215dp"
+        android:layout_marginTop="-90dp"
         android:src="@drawable/result" />
 
     <Button
         android:id="@+id/ResultBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="240dp"
-        android:layout_marginTop="430dp"
+        android:layout_marginLeft="220dp"
+        android:layout_marginTop="530dp"
         android:text="결과보기" />
 
 </RelativeLayout>
