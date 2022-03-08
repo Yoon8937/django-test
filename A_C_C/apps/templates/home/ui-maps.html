@@ -1,0 +1,44 @@
+ {% extends "layouts/base.html" %}
+
+{% block title %} Maps {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-plain">
+      <div class="card-header">
+        Kakao Map Distribution
+      </div>
+      <div class="card-body">
+        <div id="map_kakao" class="map"></div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+  <!--  Google Maps Plugin    -->
+  <!-- Place this tag in your head or just before your close body tag. -->
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAd7oLIbuRs8kBtdK6T5jPhkrTRKyRE_kM&callback=initGoogleMaps&v=Weekly"async></script> -->
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=443b277c436c11b5379264ef1b7e5f83&libraries=services,clusterer,drawing"></script>
+  <!-- <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/js/demos.js
+      demo.initGoogleMaps();
+    });
+  </script> -->
+
+
+  
+  <script src="../../static/assets/js/map.js"></script>
+  
+{% endblock javascripts %}

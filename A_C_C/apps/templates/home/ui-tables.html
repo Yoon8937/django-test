@@ -1,0 +1,126 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Log Tables {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card ">
+      <div class="card-header">
+        <h4 class="card-title">신고 로그 테이블</h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped " id="">
+            <thead class=" text-primary">
+              <tr>
+                <th class="text-center">
+                  접수 번호
+                </th>
+                <th class="text-center">
+                  위도
+                </th>
+                <th class="text-center">
+                  경도
+                </th>
+                <th class="text-center">
+                  신고 시간
+                </th>
+                <th class="text-center">
+                  차 번호
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for I in table_log %}
+              <tr>
+                <td class="text-center">
+                  {{I.user}}
+                </td>
+                <td class="text-center">
+                  {{I.lat}}
+                </td>
+                <td class="text-center">
+                  {{I.lng}}
+                </td>
+                <td class="text-center">
+                  {{I.time}}
+                </td>
+                <td class="text-center">
+                  {{I.plate_num}}
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    <div class="card  card-plain">
+      <div class="card-header">
+        <h4 class="card-title"> </h4>
+        <p class="category"> </p>
+      </div>
+      <div class="card-body">
+<!--
+        <div class="table-responsive">
+          <table class="table tablesorter " id="">
+            <thead class=" text-primary">
+              <tr>
+                <th class="text-center">
+                  접수번호
+                </th>
+                <th class="text-center">
+                  위도
+                </th>
+                <th class="text-center">
+                  경도
+                </th>
+                <th class="text-center">
+                  신고 시간
+                </th>
+                <th class="text-center">
+                  차 번호
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for I in table_log %}
+              <tr>
+                <td class="text-center">
+                  {{I.user}}
+                </td>
+                <td class="text-center">
+                  {{I.lat}}
+                </td>
+                <td class="text-center">
+                  {{I.lng}}
+                </td>
+                <td class="text-center">
+                  {{I.time}}
+                </td>
+                <td class="text-center">
+                  {{I.plate_num}}
+                </td>
+              </tr>
+            {% endfor %}  
+            </tbody>
+          </table>
+        </div>
+-->
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
