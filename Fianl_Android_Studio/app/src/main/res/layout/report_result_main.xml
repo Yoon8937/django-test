@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+        <ImageView
+            android:id="@+id/profile"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/yh" />
+        <!--        android:src="@mipmap/ic_launcher"-->
+        <TextView
+            android:id="@+id/usernameinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/profile"
+            android:layout_toRightOf="@id/profile"
+            android:textColor="@color/black"
+            android:textSize="27dp" />
+
+        <TextView
+            android:id="@+id/fkemail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/usernameinfo"
+            android:layout_alignLeft="@id/usernameinfo"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="-4dp"
+            android:text="email: amos@gmail.com"
+            android:textColor="@color/black"
+            android:textSize="23dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fkemail"
+            android:layout_alignLeft="@id/fkemail"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="-4dp"
+            android:text="phone : 010-1234-5678"
+            android:textColor="@color/black"
+            android:textSize="23dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="140dp"
+        android:gravity="center"
+        >
+
+        <View
+            android:layout_width="330dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="#e2e2e2" />
+
+    </RelativeLayout>
+
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignTop="@id/ReportBtn"
+        android:layout_marginLeft="240dp"
+        android:layout_marginTop="-330dp"
+        android:src="@drawable/nopark" />
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignTop="@id/ReportBtn"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="-320dp"
+        android:src="@drawable/car" />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignTop="@id/ReportBtn"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="-290dp"
+        android:src="@drawable/photo" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignTop="@id/ReportBtn"
+        android:layout_marginLeft="62dp"
+        android:layout_marginTop="-100dp"
+        android:src="@drawable/siren" />
+
+    <Button
+        android:id="@+id/ReportBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="530dp"
+        android:text="신고하기" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignTop="@id/ResultBtn"
+        android:layout_marginLeft="215dp"
+        android:layout_marginTop="-90dp"
+        android:src="@drawable/result" />
+
+    <Button
+        android:id="@+id/ResultBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="220dp"
+        android:layout_marginTop="530dp"
+        android:text="결과보기" />
+
+</RelativeLayout>
